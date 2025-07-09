@@ -58,12 +58,35 @@
                 <th>Passenger</th>
                 <th>Kickoff</th>
                 <th>Destination</th>
+                <th>Actions</th>
             </tr>
             </thead>
             <tbody id="tickets-table-body"></tbody>
         </table>
     </section>
 </main>
+
+<!-- Edit Ticket Modal -->
+<div id="editModal" class="modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.5); justify-content:center; align-items:center;">
+  <div style="background:#fff; padding:2rem; border-radius:8px; min-width:300px;">
+    <h3>Edit Ticket</h3>
+    <form id="edit-ticket-form">
+      <input type="hidden" id="edit-id" />
+      <label for="edit-passengerName">Passenger Name</label>
+      <input type="text" id="edit-passengerName" required />
+      <label for="edit-kickoffAddress">Kickoff Address</label>
+      <input type="text" id="edit-kickoffAddress" required />
+      <label for="edit-destinationAddress">Destination Address</label>
+      <input type="text" id="edit-destinationAddress" required />
+      <label for="edit-bookingDate">Booking Date</label>
+      <input type="date" id="edit-bookingDate" required />
+      <div style="margin-top:1rem; display:flex; gap:1rem;">
+        <button type="submit" class="primary-btn">Save</button>
+        <button type="button" class="secondary-btn" onclick="closeEditModal()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
 
 <footer class="footer">&copy; 2025 Flight Reservation System</footer>
 <script src="app.js"></script>
@@ -80,6 +103,30 @@ function updateSearchInputType() {
   }
 }
 document.addEventListener('DOMContentLoaded', updateSearchInputType);
+
+function openEditModal(ticket) {
+  document.getElementById('edit-id').value = ticket.id;
+  document.getElementById('edit-passengerName').value = ticket.passengerName;
+  document.getElementById('edit-kickoffAddress').value = ticket.kickoffAddress;
+  document.getElementById('edit-destinationAddress').value = ticket.destinationAddress;
+  document.getElementById('edit-bookingDate').value = ticket.bookingDate || '';
+  document.getElementById('editModal').style.display = 'flex';
+}
+function closeEditModal() {
+  document.getElementById('editModal').style.display = 'none';
+}
+document.getElementById('edit-ticket-form').onsubmit = function(e) {
+  e.preventDefault();
+  const id = document.getElementById('edit-id').value;
+  const ticket = {
+    passengerName: document.getElementById('edit-passengerName').value,
+    kickoffAddress: document.getElementById('edit-kickoffAddress').value,
+    destinationAddress: document.getElementById('edit-destinationAddress').value,
+    bookingDate: document.getElementById('edit-bookingDate').value
+  };
+  updateTicket(id, ticket);
+  closeEditModal();
+};
 </script>
 </body>
 </html>
