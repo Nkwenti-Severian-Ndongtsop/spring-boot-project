@@ -1,0 +1,138 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(120deg, #f0f8ff, #e0f7fa);
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+.navbar {
+    background-color: #1976d2;
+    padding: 1rem 2rem;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.navbar nav {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.navbar .nav-btn {
+    background-color: #ffffff;
+    color: #1976d2;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.navbar .nav-btn:hover {
+    background-color: #bbdefb;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 3rem;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.container.expanded {
+    max-width: 1200px;
+}
+
+.spacer {
+    height: 3rem;
+}
+
+h1, h2 {
+    text-align: center;
+    margin-bottom: 1.2rem;
+}
+
+form, .search-controls {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+input, select {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    flex: 1 1 200px;
+}
+
+.primary-btn, .secondary-btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.primary-btn {
+    background-color: #388e3c;
+    color: white;
+}
+
+.primary-btn:hover {
+    background-color: #2e7d32;
+}
+
+.secondary-btn {
+    background-color: #0288d1;
+    color: white;
+}
+
+.secondary-btn:hover {
+    background-color: #0277bd;
+}
+
+.table-section {
+    margin-top: 2rem;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+table th, table td {
+    border: 1px solid #ccc;
+    padding: 12px;
+    text-align: center;
+}
+
+table th {
+    background-color: #eeeeee;
+}
+
+a {
+    text-decoration: none;
+    color: #1976d2;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.footer {
+    text-align: center;
+    padding: 1rem;
+    background-color: #1976d2;
+    color: white;
+    margin-top: 2rem;
+}
