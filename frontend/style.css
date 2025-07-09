@@ -294,12 +294,17 @@ table td:nth-child(3), table td:nth-child(4) { /* Kickoff and Destination column
     max-width: 250px;
 }
 
-table td:nth-child(5) { /* Actions column */
+table td:nth-child(5) { /* Date column */
+    min-width: 120px;
+    max-width: 150px;
+}
+
+table td:nth-child(6) { /* Actions column */
     min-width: 200px;
     white-space: nowrap;
 }
 
-table td:nth-child(5) button {
+table td:nth-child(6) button {
     margin: 0 0.3rem;
     padding: 0.5rem 1rem;
     font-size: 0.9rem;
