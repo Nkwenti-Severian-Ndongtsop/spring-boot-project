@@ -15,7 +15,8 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: your-frontend-image:latest  # Replace with your built image name
+          image: ghcr.io/nkwenti-severian-ndongtsop/flight-ui:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
 ---
