@@ -34,6 +34,9 @@ spec:
                 secretKeyRef:
                   name: db-secret
                   key: DB_PASSWORD
+          volumeMounts:
+            - name: db-storage
+              mountPath: /var/lib/postgresql/data
 ---
 apiVersion: v1
 kind: Service
@@ -47,3 +50,7 @@ spec:
   ports:
     - port: 5432
       targetPort: 5432 
+      volumes:
+        - name: db-storage
+          persistentVolumeClaim:
+            claimName: db-pvc 
