@@ -144,5 +144,5 @@ function renderTickets(tickets) {
             <td>${ticket.destinationAddress || ''}</td>
         `;
         tableBody.appendChild(row);
-    });
+        });
 }
