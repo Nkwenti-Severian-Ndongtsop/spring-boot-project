@@ -35,3 +35,16 @@ out/
 
 ### VS Code ###
 .vscode/
+
+# --- Docker ---
+# Ignore local Docker images and build cache
+*.tar
+*.img
+.docker/
+
+# --- Logs ---
+*.log
+
+# --- OS/Editor files ---
+.DS_Store
+Thumbs.db
