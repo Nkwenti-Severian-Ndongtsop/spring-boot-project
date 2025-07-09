@@ -1,0 +1,34 @@
+# Build and IDE files
+.gradle/
+build/
+out/
+!gradle/wrapper/gradle-wrapper.jar
+
+# IDE and OS-specific files
+*.iml
+*.ipr
+*.iws
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Logs and temporary files
+*.log
+*.tmp
+*.bak
+*.swp
+
+# Git and version control
+.git/
+.gitignore
+.gitattributes
+# Environment and config
+.env
+.env.*
+Dockerfile
+# Node (if using frontend separately)
+node_modules/
+dist/
+HELP.md
+
