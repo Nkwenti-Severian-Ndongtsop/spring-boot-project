@@ -126,13 +126,63 @@ function bookTicket(event) {
         });
 }
 
+function updateTicket(id, ticket) {
+    fetch(`${API_BASE}/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify(ticket)
+    })
+        .then(res => {
+            if (!res.ok) {
+                return res.json().then(data => { throw new Error(data.error || 'Update failed'); });
+            }
+            return res.json();
+        })
+        .then(() => {
+            alert('✅ Ticket updated successfully!');
+            // Optionally clear table or refresh search results
+            document.getElementById('tickets-table-body').innerHTML = '';
+        })
+        .catch(error => {
+            console.error('Update error:', error);
+            alert('❌ Update failed: ' + error.message);
+        });
+}
+
+function deleteTicket(id) {
+    if (!confirm('Are you sure you want to delete this ticket?')) return;
+    fetch(`${API_BASE}/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Accept': 'application/json'
+        }
+    })
+        .then(res => {
+            if (!res.ok) {
+                return res.json().then(data => { throw new Error(data.error || 'Delete failed'); });
+            }
+            return res.json();
+        })
+        .then(() => {
+            alert('✅ Ticket deleted successfully!');
+            document.getElementById('tickets-table-body').innerHTML = '';
+        })
+        .catch(error => {
+            console.error('Delete error:', error);
+            alert('❌ Delete failed: ' + error.message);
+        });
+}
+
 // --- Render Tickets ---
 function renderTickets(tickets) {
     const tableBody = document.getElementById('tickets-table-body');
     if (!tableBody) return;
     tableBody.innerHTML = '';
     if (!Array.isArray(tickets) || tickets.length === 0) {
-        tableBody.innerHTML = '<tr><td colspan="4">No tickets found.</td></tr>';
+        tableBody.innerHTML = '<tr><td colspan="5">No tickets found.</td></tr>';
         return;
     }
     tickets.forEach(ticket => {
@@ -142,7 +192,11 @@ function renderTickets(tickets) {
             <td>${ticket.passengerName || ''}</td>
             <td>${ticket.kickoffAddress || ''}</td>
             <td>${ticket.destinationAddress || ''}</td>
+            <td>
+                <button class='secondary-btn' onclick='openEditModal(${JSON.stringify(ticket)})'>Edit</button>
+                <button class='secondary-btn' onclick='deleteTicket(${ticket.id})'>Delete</button>
+            </td>
         `;
         tableBody.appendChild(row);
-        });
+    });
 }
