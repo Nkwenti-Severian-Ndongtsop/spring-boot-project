@@ -42,7 +42,8 @@ public class FlightTicketService {
             ticket.setPassengerName(updated.getPassengerName());
             ticket.setKickoffAddress(updated.getKickoffAddress());
             ticket.setDestinationAddress(updated.getDestinationAddress());
-            ticket.setBookingDate(updated.getBookingDate());
+            // Preserve the original booking date
+            // ticket.setBookingDate(updated.getBookingDate());
             return repository.save(ticket);
         }).orElse(null);
     }
