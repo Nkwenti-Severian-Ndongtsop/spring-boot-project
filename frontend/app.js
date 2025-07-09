@@ -1,15 +1,9 @@
-const BASE_URL = window.BACKEND_URL || 'http://backend:8000';
+
+const BASE_URL = 'http://10.143.124.81:30081';
 const API_BASE = `${BASE_URL}/api/tickets`;
 
 const SUCCESS_MESSAGE = '✅ Ticket successfully booked!';
 const FORM_ID = 'ticket-form';
-
-// Allow setting BACKEND_URL from a <script> tag or environment variable
-if (!window.BACKEND_URL) {
-  // Try to read from a meta tag or global variable if set by the deployment
-  const meta = document.querySelector('meta[name="backend-url"]');
-  if (meta) window.BACKEND_URL = meta.getAttribute('content');
-}
 
 const loadTickets = () => {
     fetch(API_BASE)
