@@ -54,6 +54,29 @@ public class FlightTicketController {
         return service.searchByKickoff(kickoff);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateTicket(@PathVariable Long id, @Valid @RequestBody FlightTicket ticket, BindingResult result) {
+        if (result.hasErrors()) {
+            StringBuilder errors = new StringBuilder();
+            result.getFieldErrors().forEach(e -> errors.append(e.getDefaultMessage()).append("; "));
+            return ResponseEntity.badRequest().body(Map.of("error", errors.toString()));
+        }
+        FlightTicket updated = service.updateTicket(id, ticket);
+        if (updated == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(Map.of("message", "Ticket updated successfully."));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteTicket(@PathVariable Long id) {
+        boolean deleted = service.deleteTicket(id);
+        if (!deleted) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(Map.of("message", "Ticket deleted successfully."));
+    }
+
     @GetMapping("/health")
     public String health() {
         return "@Nkwenti flight api running\n";
