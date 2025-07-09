@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book a Flight Ticket</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header class="navbar">
+    <h1>✈️ Flight Manager</h1>
+    <nav>
+        <button class="nav-btn" onclick="location.href='index.html'">🏠 Home</button>
+        <button class="nav-btn" onclick="location.href='search.html'">🔍 Search Tickets</button>
+        <button class="nav-btn" onclick="location.href='tickets.html'">📋 View All Tickets</button>
+    </nav>
+</header>
+<main class="container expanded" style="background:none;box-shadow:none;">
+    <section class="form-section" style="background:none;box-shadow:none;padding:0;">
+        <h2 class="booking-title">🎫 Book a Ticket</h2>
+        <form id="ticket-form" style="flex-direction: row; gap: 2rem; justify-content: center; align-items: flex-end; background:none; box-shadow:none;">
+            <div style="display: flex; flex-direction: column; align-items: flex-start;">
+                <label for="passengerName">Passenger Name</label>
+                <input type="text" id="passengerName" placeholder="Passenger Name" required />
+            </div>
+            <div style="display: flex; flex-direction: column; align-items: flex-start;">
+                <label for="kickoffAddress">Kickoff Address</label>
+                <input type="text" id="kickoffAddress" placeholder="Kickoff Address" required />
+            </div>
+            <div style="display: flex; flex-direction: column; align-items: flex-start;">
+                <label for="destinationAddress">Destination Address</label>
+                <input type="text" id="destinationAddress" placeholder="Destination Address" required />
+            </div>
+        </form>
+        <div style="display: flex; justify-content: center; margin-top: 2rem;">
+            <button type="submit" class="primary-btn" form="ticket-form">✈️ Book Ticket</button>
+        </div>
+    </section>
+</main>
+<footer class="footer">&copy; 2025 Nkwenti Airlines Flight (NAF)</footer>
+<script src="app.js"></script>
+</body>
+</html> 
