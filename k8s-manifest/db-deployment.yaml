@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: postgres
-          image: postgres:15
+          image: postgres:15-alpine
           ports:
             - containerPort: 5432
           env:
@@ -37,6 +37,10 @@ spec:
           volumeMounts:
             - name: db-storage
               mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: db-storage
+          persistentVolumeClaim:
+            claimName: db-pvc
 ---
 apiVersion: v1
 kind: Service
@@ -50,7 +54,3 @@ spec:
   ports:
     - port: 5432
       targetPort: 5432 
-      volumes:
-        - name: db-storage
-          persistentVolumeClaim:
-            claimName: db-pvc 
