@@ -143,8 +143,17 @@ function updateTicket(id, ticket) {
         })
         .then(() => {
             alert('✅ Ticket updated successfully!');
-            // Optionally clear table or refresh search results
-            document.getElementById('tickets-table-body').innerHTML = '';
+            // Refresh the current view
+            const isTicketsPage = window.location.pathname.includes('tickets.html');
+            if (isTicketsPage) {
+                loadTickets(); // Refresh all tickets
+            } else {
+                // For search page, clear the table
+                const tableBody = document.getElementById('tickets-table-body');
+                if (tableBody) tableBody.innerHTML = '';
+                const tableSection = document.querySelector('.table-section');
+                if (tableSection) tableSection.style.display = 'none';
+            }
         })
         .catch(error => {
             console.error('Update error:', error);
@@ -193,7 +202,7 @@ function renderTickets(tickets) {
         } else if (tableSection && isTicketsPage) {
             // Show table on tickets page even when empty
             tableSection.style.display = 'block';
-            tableBody.innerHTML = '<tr><td colspan="6">No tickets found.</td></tr>';
+            tableBody.innerHTML = '<tr><td colspan="5">No tickets found.</td></tr>';
         }
         return;
     }
@@ -208,7 +217,6 @@ function renderTickets(tickets) {
             <td>${ticket.kickoffAddress || ''}</td>
             <td>${ticket.destinationAddress || ''}</td>
             <td>
-                <button class='secondary-btn' onclick='viewTicket(${JSON.stringify(ticket)})'>View</button>
                 <button class='secondary-btn' onclick='openEditModal(${JSON.stringify(ticket)})'>Edit</button>
                 <button class='secondary-btn' onclick='deleteTicket(${ticket.id})'>Delete</button>
             </td>
@@ -217,14 +225,32 @@ function renderTickets(tickets) {
     });
 }
 
-function viewTicket(ticket) {
-    const details = `
-🎫 Ticket Details:
-ID: ${ticket.id}
-Passenger: ${ticket.passengerName}
-From: ${ticket.kickoffAddress}
-To: ${ticket.destinationAddress}
-Date: ${ticket.date || 'N/A'}
-    `;
-    alert(details);
+function openEditModal(ticket) {
+    const newPassengerName = prompt('Enter new passenger name:', ticket.passengerName);
+    if (newPassengerName === null) return;
+    
+    const newKickoffAddress = prompt('Enter new kickoff address:', ticket.kickoffAddress);
+    if (newKickoffAddress === null) return;
+    
+    const newDestinationAddress = prompt('Enter new destination address:', ticket.destinationAddress);
+    if (newDestinationAddress === null) return;
+    
+    // Validation
+    if (!newPassengerName.trim() || !newKickoffAddress.trim() || !newDestinationAddress.trim()) {
+        alert('⚠️ All fields are required.');
+        return;
+    }
+    
+    if (newKickoffAddress.trim() === newDestinationAddress.trim()) {
+        alert('⚠️ Kickoff and destination cannot be the same.');
+        return;
+    }
+    
+    const updatedTicket = {
+        passengerName: newPassengerName.trim(),
+        kickoffAddress: newKickoffAddress.trim(),
+        destinationAddress: newDestinationAddress.trim()
+    };
+    
+    updateTicket(ticket.id, updatedTicket);
 }
