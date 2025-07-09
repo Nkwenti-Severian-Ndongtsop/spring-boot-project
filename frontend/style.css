@@ -1,9 +1,9 @@
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(120deg, #f0f8ff, #e0f7fa);
-    margin: 0;
-    padding: 0;
-    color: #333;
+    font-size: 1.2rem;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 .navbar {
@@ -37,16 +37,67 @@ body {
 }
 
 .container {
-    max-width: 1100px;
-    margin: 2rem auto;
-    padding: 3rem;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    max-width: 700px;
+    margin: 2.5rem auto;
+    padding: 3rem 2rem;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .container.expanded {
-    max-width: 1200px;
+    max-width: 1400px;
+    width: 95vw;
+    background: none !important;
+    box-shadow: none !important;
+    padding: 1.5rem 0 !important;
+    height: calc(100vh - 160px);
+    display: flex;
+    flex-direction: column;
+}
+
+.search-section {
+    flex-shrink: 0;
+    margin-bottom: 1rem;
+}
+
+.table-section {
+    flex: 1;
+    overflow-y: auto;
+    margin-top: 1rem;
+    max-height: calc(100vh - 450px);
+}
+
+.form-section[style*="background:none"] {
+    background: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+}
+
+.search-section[style*="background:none"] {
+    background: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+}
+
+#ticket-form[style*="flex-direction: row"] {
+    flex-direction: row !important;
+    gap: 2rem !important;
+    justify-content: center !important;
+    align-items: flex-end !important;
+    background: none !important;
+    box-shadow: none !important;
+    width: 100%;
+}
+
+#ticket-form > div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 220px;
 }
 
 .spacer {
@@ -54,31 +105,38 @@ body {
 }
 
 h1, h2 {
-    text-align: center;
-    margin-bottom: 1.2rem;
-}
-
-form, .search-controls {
-    display: flex;
-    gap: 15px;
-    flex-wrap: wrap;
-    justify-content: center;
+    font-size: 2.2rem;
     margin-bottom: 1.5rem;
 }
 
-input, select {
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    flex: 1 1 200px;
+form, .search-controls {
+    flex-direction: column;
+    gap: 1.2rem;
+    width: 100%;
+    max-width: 420px;
+    margin: 0 auto 1.5rem auto;
+    align-items: stretch;
 }
 
-.primary-btn, .secondary-btn {
-    padding: 12px 24px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: bold;
+input, select {
+    font-size: 1.1rem;
+    padding: 1rem 1.2rem;
+    border-radius: 8px;
+    border: 1.5px solid #b3c6e0;
+    margin-bottom: 0.5rem;
+}
+
+label {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 0.2rem;
+}
+
+.primary-btn, .secondary-btn, .nav-btn {
+    font-size: 1.15rem;
+    padding: 0.9rem 2.2rem;
+    border-radius: 8px;
+    margin-top: 0.5rem;
 }
 
 .primary-btn {
@@ -131,8 +189,188 @@ a:hover {
 
 .footer {
     text-align: center;
-    padding: 1rem;
+    padding: 1.2rem 0 1.2rem 0;
     background-color: #1976d2;
     color: white;
-    margin-top: 2rem;
+    margin-top: auto;
+    font-size: 1.1rem;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+}
+
+.booking-title, .search-title {
+    font-size: 2.7rem !important;
+    font-weight: 700;
+    margin-bottom: 2rem;
+}
+
+label, select, input {
+    font-size: 1.35rem !important;
+}
+
+.primary-btn, .secondary-btn, .nav-btn {
+    font-size: 1.3rem;
+    padding: 1.1rem 2.5rem;
+}
+
+/* Redesigned search controls */
+.search-controls {
+    background: #f5faff;
+    border-radius: 18px;
+    box-shadow: 0 4px 18px rgba(25,118,210,0.10);
+    padding: 2.2rem 2.5rem 2rem 2.5rem;
+    margin-bottom: 2.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2.2rem;
+    align-items: flex-end;
+    justify-content: flex-start;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.search-controls > div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 200px;
+}
+
+.search-controls label {
+    font-size: 1.25rem;
+    font-weight: 600;
+    text-align: left;
+    margin-bottom: 0.5rem;
+}
+
+.search-controls input, .search-controls select {
+    font-size: 1.2rem;
+    padding: 1.1rem 1.3rem;
+    border-radius: 8px;
+    border: 1.5px solid #b3c6e0;
+    width: 100%;
+}
+
+table {
+    font-size: 1.2rem;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(25,118,210,0.07);
+    width: 100%;
+    min-width: 800px;
+}
+
+table th, table td {
+    padding: 1.2rem 1.5rem;
+    font-size: 1.15rem;
+    text-align: left;
+    word-wrap: break-word;
+    min-width: 120px;
+}
+
+table th {
+    background-color: #e3f2fd;
+    font-size: 1.18rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+table td:nth-child(1) { /* ID column */
+    min-width: 80px;
+    max-width: 100px;
+}
+
+table td:nth-child(2) { /* Passenger column */
+    min-width: 150px;
+    max-width: 200px;
+}
+
+table td:nth-child(3), table td:nth-child(4) { /* Kickoff and Destination columns */
+    min-width: 180px;
+    max-width: 250px;
+}
+
+table td:nth-child(5) { /* Actions column */
+    min-width: 200px;
+    white-space: nowrap;
+}
+
+table td:nth-child(5) button {
+    margin: 0 0.3rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+}
+
+table td[colspan] {
+    text-align: center;
+    padding: 2rem;
+    font-size: 1.2rem;
+    color: #666;
+    font-style: italic;
+}
+
+@media (max-width: 900px) {
+    .container.expanded {
+        max-width: 99vw;
+        padding: 1rem 0.2rem !important;
+        height: calc(100vh - 140px);
+    }
+    .table-section {
+        max-height: calc(100vh - 400px);
+    }
+    #ticket-form[style*="flex-direction: row"] {
+        flex-direction: column !important;
+        gap: 1.2rem !important;
+        align-items: stretch !important;
+    }
+    #ticket-form > div {
+        min-width: unset;
+    }
+    .search-controls {
+        flex-direction: column;
+        gap: 1.2rem;
+        padding: 1.2rem 0.5rem 1rem 0.5rem;
+        justify-content: flex-start;
+    }
+    .search-controls > div {
+        min-width: unset;
+        width: 100%;
+    }
+    table {
+        min-width: 600px;
+        font-size: 1rem;
+    }
+    table th, table td {
+        padding: 0.8rem 1rem;
+        font-size: 1rem;
+    }
+    table td:nth-child(5) button {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+        margin: 0 0.2rem;
+    }
+    table td[colspan] {
+        padding: 1.5rem;
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 1.2rem 0.5rem;
+    }
+    .form-section, .search-section {
+        padding: 1rem 0.2rem;
+    }
+    .primary-btn, .secondary-btn, .nav-btn {
+        font-size: 1rem;
+        padding: 0.7rem 1.2rem;
+    }
+    h1, h2 {
+        font-size: 1.3rem;
+    }
 }
