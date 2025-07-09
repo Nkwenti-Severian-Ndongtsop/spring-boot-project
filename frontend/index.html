@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="backend-url" content="http://backend:8000" />
+    <title>Flight Ticket Reservation</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header class="navbar">
+    <h1>✈️ Flight Manager</h1>
+    <nav>
+        <button class="nav-btn" onclick="location.href='tickets.html'">📋 View Tickets</button>
+    </nav>
+</header>
+
+<main class="container expanded">
+    <section class="form-section">
+        <h2>🎫 Book a Ticket</h2>
+        <form id="ticket-form">
+            <label for="passengerName">Passenger Name</label>
+            <input type="text" id="passengerName" placeholder="Passenger Name" required />
+
+            <label for="kickoffAddress">Kickoff Address</label>
+            <input type="text" id="kickoffAddress" placeholder="Kickoff Address" required />
+
+            <label for="destinationAddress">Destination Address</label>
+            <input type="text" id="destinationAddress" placeholder="Destination Address" required />
+
+            <button type="submit" class="primary-btn">✈️ Book Ticket</button>
+        </form>
+    </section>
+
+    <div class="spacer"></div>
+
+    <section class="search-section">
+        <h2>🔍 Search Tickets</h2>
+        <div class="search-controls">
+            <label for="searchType">Search Type</label>
+            <select id="searchType">
+                <option value="destination">By Destination</option>
+                <option value="kickoff">By Kickoff</option>
+            </select>
+
+            <label for="searchInput">Search Value</label>
+            <input type="text" id="searchInput" placeholder="Enter search value" />
+
+            <button onclick="searchTickets()" class="secondary-btn">Search</button>
+        </div>
+    </section>
+    <section class="table-section">
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Passenger</th>
+                <th>Kickoff</th>
+                <th>Destination</th>
+            </tr>
+            </thead>
+            <tbody id="tickets-table-body"></tbody>
+        </table>
+    </section>
+</main>
+
+<footer class="footer">&copy; 2025 Flight Reservation System</footer>
+<script src="app.js"></script>
+</body>
+</html>
