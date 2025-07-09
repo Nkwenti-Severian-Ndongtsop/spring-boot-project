@@ -21,7 +21,7 @@ const loadTickets = () => {
 const handleBookingSuccess = () => {
     alert(SUCCESS_MESSAGE);
     document.getElementById(FORM_ID).reset();
-    loadTickets();
+    // Do not call loadTickets here; only reset the form and show alert
 };
 
 
