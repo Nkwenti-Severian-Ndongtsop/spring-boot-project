@@ -38,9 +38,10 @@
         <h2>🔍 Search Tickets</h2>
         <div class="search-controls">
             <label for="searchType">Search Type</label>
-            <select id="searchType">
+            <select id="searchType" onchange="updateSearchInputType()">
                 <option value="destination">By Destination</option>
                 <option value="kickoff">By Kickoff</option>
+                <option value="date">By Date</option>
             </select>
 
             <label for="searchInput">Search Value</label>
@@ -66,5 +67,19 @@
 
 <footer class="footer">&copy; 2025 Flight Reservation System</footer>
 <script src="app.js"></script>
+<script>
+function updateSearchInputType() {
+  const type = document.getElementById('searchType').value;
+  const input = document.getElementById('searchInput');
+  if (type === 'date') {
+    input.type = 'date';
+    input.placeholder = 'yyyy-mm-dd';
+  } else {
+    input.type = 'text';
+    input.placeholder = 'Enter search value';
+  }
+}
+document.addEventListener('DOMContentLoaded', updateSearchInputType);
+</script>
 </body>
 </html>
