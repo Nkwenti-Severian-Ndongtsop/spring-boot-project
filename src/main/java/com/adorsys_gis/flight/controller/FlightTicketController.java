@@ -56,6 +56,6 @@ public class FlightTicketController {
 
     @GetMapping("/health")
     public String health() {
-        return "flight api running";
+        return "@Nkwenti flight api running\n";
     }
 }
