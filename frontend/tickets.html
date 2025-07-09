@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="backend-url" content="http://backend:8000" />
+    <title>All Tickets</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<header class="navbar">
+    <h1>✈️ All Booked Tickets</h1>
+    <nav>
+        <button class="nav-btn" onclick="location.href='index.html'">🏠 Home</button>
+    </nav>
+</header>
+
+<main class="container">
+    <section class="table-section">
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Passenger</th>
+                <th>Kickoff</th>
+                <th>Destination</th>
+            </tr>
+            </thead>
+            <tbody id="tickets-table-body"></tbody>
+        </table>
+    </section>
+</main>
+<footer class="footer">&copy; 2025 Flight Reservation System</footer>
+<script src="./app.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        loadTickets();
+    });
+</script>
+</body>
+</html>
