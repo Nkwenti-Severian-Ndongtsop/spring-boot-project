@@ -37,4 +37,21 @@ public class FlightTicketService {
         return repository.findAll();
     }
 
+    public FlightTicket updateTicket(Long id, FlightTicket updated) {
+        return repository.findById(id).map(ticket -> {
+            ticket.setPassengerName(updated.getPassengerName());
+            ticket.setKickoffAddress(updated.getKickoffAddress());
+            ticket.setDestinationAddress(updated.getDestinationAddress());
+            ticket.setBookingDate(updated.getBookingDate());
+            return repository.save(ticket);
+        }).orElse(null);
+    }
+
+    public boolean deleteTicket(Long id) {
+        if (repository.existsById(id)) {
+            repository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
 }
