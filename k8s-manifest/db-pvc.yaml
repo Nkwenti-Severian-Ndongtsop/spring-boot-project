@@ -10,3 +10,4 @@ spec:
     requests:
       storage: 100Mi 
   volumeName: db-pv 
+  storageClassName: local-path 
