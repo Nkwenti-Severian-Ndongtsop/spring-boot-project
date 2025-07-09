@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="backend-url" content="http://backend:8000" />
-    <title>All Tickets</title>
-    <link rel="stylesheet" href="./style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>View All Tickets</title>
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 <header class="navbar">
-    <h1>✈️ All Booked Tickets</h1>
+    <h1>✈️ Flight Manager</h1>
     <nav>
         <button class="nav-btn" onclick="location.href='index.html'">🏠 Home</button>
+        <button class="nav-btn" onclick="location.href='book.html'">🎫 Book Ticket</button>
+        <button class="nav-btn" onclick="location.href='search.html'">🔍 Search Tickets</button>
     </nav>
 </header>
-
-<main class="container">
+<main class="container expanded" style="background:none;box-shadow:none;">
+    <section class="search-section" style="background:none;box-shadow:none;padding:0;">
+        <h2 class="search-title">🎫 All Tickets</h2>
+    </section>
     <section class="table-section">
         <table>
             <thead>
@@ -24,18 +27,20 @@
                 <th>Passenger</th>
                 <th>Kickoff</th>
                 <th>Destination</th>
+                <th>Actions</th>
             </tr>
             </thead>
             <tbody id="tickets-table-body"></tbody>
         </table>
     </section>
 </main>
-<footer class="footer">&copy; 2025 Flight Reservation System</footer>
-<script src="./app.js"></script>
+<footer class="footer">&copy; 2025 Nkwenti Airlines Flight (NAF)</footer>
+<script src="app.js"></script>
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        loadTickets();
-    });
+// Load all tickets when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    loadTickets();
+});
 </script>
 </body>
 </html>
