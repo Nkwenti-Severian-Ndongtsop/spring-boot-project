@@ -179,12 +179,27 @@ function deleteTicket(id) {
 // --- Render Tickets ---
 function renderTickets(tickets) {
     const tableBody = document.getElementById('tickets-table-body');
+    const tableSection = document.querySelector('.table-section');
+    const isTicketsPage = window.location.pathname.includes('tickets.html');
+    
     if (!tableBody) return;
+    
     tableBody.innerHTML = '';
+    
     if (!Array.isArray(tickets) || tickets.length === 0) {
-        tableBody.innerHTML = '<tr><td colspan="5">No tickets found.</td></tr>';
+        if (tableSection && !isTicketsPage) {
+            // Hide table on search page when no results
+            tableSection.style.display = 'none';
+        } else if (tableSection && isTicketsPage) {
+            // Show table on tickets page even when empty
+            tableSection.style.display = 'block';
+            tableBody.innerHTML = '<tr><td colspan="6">No tickets found.</td></tr>';
+        }
         return;
     }
+    
+    if (tableSection) tableSection.style.display = 'block';
+    
     tickets.forEach(ticket => {
         const row = document.createElement('tr');
         row.innerHTML = `
@@ -193,10 +208,23 @@ function renderTickets(tickets) {
             <td>${ticket.kickoffAddress || ''}</td>
             <td>${ticket.destinationAddress || ''}</td>
             <td>
+                <button class='secondary-btn' onclick='viewTicket(${JSON.stringify(ticket)})'>View</button>
                 <button class='secondary-btn' onclick='openEditModal(${JSON.stringify(ticket)})'>Edit</button>
                 <button class='secondary-btn' onclick='deleteTicket(${ticket.id})'>Delete</button>
             </td>
         `;
         tableBody.appendChild(row);
     });
+}
+
+function viewTicket(ticket) {
+    const details = `
+🎫 Ticket Details:
+ID: ${ticket.id}
+Passenger: ${ticket.passengerName}
+From: ${ticket.kickoffAddress}
+To: ${ticket.destinationAddress}
+Date: ${ticket.date || 'N/A'}
+    `;
+    alert(details);
 }
