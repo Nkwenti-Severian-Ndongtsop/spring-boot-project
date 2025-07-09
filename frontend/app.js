@@ -202,7 +202,7 @@ function renderTickets(tickets) {
         } else if (tableSection && isTicketsPage) {
             // Show table on tickets page even when empty
             tableSection.style.display = 'block';
-            tableBody.innerHTML = '<tr><td colspan="5">No tickets found.</td></tr>';
+            tableBody.innerHTML = '<tr><td colspan="6">No tickets found.</td></tr>';
         }
         return;
     }
@@ -211,11 +211,13 @@ function renderTickets(tickets) {
     
     tickets.forEach(ticket => {
         const row = document.createElement('tr');
+        const bookingDate = ticket.bookingDate ? new Date(ticket.bookingDate).toLocaleDateString() : 'N/A';
         row.innerHTML = `
             <td>${ticket.id || ''}</td>
             <td>${ticket.passengerName || ''}</td>
             <td>${ticket.kickoffAddress || ''}</td>
             <td>${ticket.destinationAddress || ''}</td>
+            <td>${bookingDate}</td>
             <td>
                 <button class='secondary-btn' onclick='openEditModal(${JSON.stringify(ticket)})'>Edit</button>
                 <button class='secondary-btn' onclick='deleteTicket(${ticket.id})'>Delete</button>
@@ -249,7 +251,8 @@ function openEditModal(ticket) {
     const updatedTicket = {
         passengerName: newPassengerName.trim(),
         kickoffAddress: newKickoffAddress.trim(),
-        destinationAddress: newDestinationAddress.trim()
+        destinationAddress: newDestinationAddress.trim(),
+        bookingDate: new Date().toISOString().split('T')[0] // Current date in YYYY-MM-DD format
     };
     
     updateTicket(ticket.id, updatedTicket);
