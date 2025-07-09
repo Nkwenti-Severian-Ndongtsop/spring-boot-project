@@ -53,4 +53,9 @@ public class FlightTicketController {
     public List<FlightTicket> byKickoff(@PathVariable String kickoff) {
         return service.searchByKickoff(kickoff);
     }
+
+    @GetMapping("/health")
+    public String health() {
+        return "flight api running";
+    }
 }
