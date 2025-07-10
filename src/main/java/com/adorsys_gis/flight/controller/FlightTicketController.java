@@ -33,6 +33,7 @@ public class FlightTicketController {
             result.getFieldErrors().forEach(e -> errors.append(e.getDefaultMessage()).append("; "));
             return ResponseEntity.badRequest().body(Map.of("error", errors.toString()));
         }
+        
         ticket.setBookingDate(LocalDate.now());
         service.saveTicket(ticket);
         return ResponseEntity.status(201).body(Map.of("message", "Ticket created successfully."));
@@ -61,6 +62,7 @@ public class FlightTicketController {
             result.getFieldErrors().forEach(e -> errors.append(e.getDefaultMessage()).append("; "));
             return ResponseEntity.badRequest().body(Map.of("error", errors.toString()));
         }
+        
         FlightTicket updated = service.updateTicket(id, ticket);
         if (updated == null) {
             return ResponseEntity.notFound().build();
