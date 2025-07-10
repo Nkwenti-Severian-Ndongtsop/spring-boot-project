@@ -220,8 +220,16 @@ function renderTickets(tickets) {
     if (tableSection) tableSection.style.display = 'block';
     
     tickets.forEach(ticket => {
+        let bookingDate = 'N/A';
+        if (ticket.bookingDate) {
+            try {
+                // Accept both string and object (ISO format)
+                bookingDate = new Date(ticket.bookingDate).toLocaleDateString();
+            } catch (e) {
+                bookingDate = ticket.bookingDate;
+            }
+        }
         const row = document.createElement('tr');
-        const bookingDate = ticket.bookingDate ? new Date(ticket.bookingDate).toLocaleDateString() : 'N/A';
         row.innerHTML = `
             <td>${ticket.id || ''}</td>
             <td>${ticket.passengerName || ''}</td>
