@@ -177,7 +177,17 @@ function deleteTicket(id) {
         })
         .then(() => {
             alert('✅ Ticket deleted successfully!');
-            document.getElementById('tickets-table-body').innerHTML = '';
+            // Refresh the current view
+            const isTicketsPage = window.location.pathname.includes('tickets.html');
+            if (isTicketsPage) {
+                loadTickets(); // Refresh all tickets
+            } else {
+                // For search page, clear the table
+                const tableBody = document.getElementById('tickets-table-body');
+                if (tableBody) tableBody.innerHTML = '';
+                const tableSection = document.querySelector('.table-section');
+                if (tableSection) tableSection.style.display = 'none';
+            }
         })
         .catch(error => {
             console.error('Delete error:', error);
