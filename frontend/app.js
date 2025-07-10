@@ -252,7 +252,7 @@ function openEditModal(ticket) {
         passengerName: newPassengerName.trim(),
         kickoffAddress: newKickoffAddress.trim(),
         destinationAddress: newDestinationAddress.trim(),
-        bookingDate: new Date().toISOString().split('T')[0] // Current date in YYYY-MM-DD format
+        bookingDate: ticket.bookingDate ? ticket.bookingDate : new Date().toISOString().split('T')[0]
     };
     
     updateTicket(ticket.id, updatedTicket);
