@@ -18,8 +18,8 @@ export function useTicketsApi() {
   );
 
   // Delete ticket (if supported by your API)
-  const deleteTicket = useMutation(
-    (ticketId: string) => api.deleteTicket({ id: ticketId }),
+  const deleteTicket = useMutation<void, Error, number>(
+    (ticketId) => api.deleteTicket({ id: ticketId }),
     {
       onSuccess: () => queryClient.invalidateQueries(['tickets']),
     }
