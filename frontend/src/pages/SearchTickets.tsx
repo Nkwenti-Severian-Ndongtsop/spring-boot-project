@@ -32,15 +32,16 @@ import {
 } from "@/components/ui/alert-dialog";
 import { toast } from "@/hooks/use-toast";
 import { format } from "date-fns";
+import { FlightTicket } from "@/types/flightTicket";
 
 export default function SearchTickets() {
   const { ticketsQuery, deleteTicket } = useTicketsApi();
   const [searchQuery, setSearchQuery] = useState("");
   const [searchBy, setSearchBy] = useState<'kickofaddress' | 'destination' | 'date'>('kickofaddress');
-  const [editingTicket, setEditingTicket] = useState<any | null>(null);
+  const [editingTicket, setEditingTicket] = useState<FlightTicket | null>(null);
   const [deletingTicketId, setDeletingTicketId] = useState<number | null>(null);
 
-  const tickets = ticketsQuery.data || [];
+  const tickets = useMemo(() => ticketsQuery.data || [], [ticketsQuery.data]);
 
   const filteredTickets = useMemo(() => {
     if (!searchQuery.trim()) return tickets;
@@ -60,7 +61,7 @@ export default function SearchTickets() {
     });
   }, [tickets, searchQuery, searchBy]);
 
-  const handleEdit = (ticket: any) => {
+  const handleEdit = (ticket: FlightTicket) => {
     setEditingTicket(ticket);
   };
 
