@@ -58,6 +58,7 @@ frontend/coverage/
 *.tmp
 *.bak
 
+
 # Ignore OpenAPI generator cache
 frontend/src/api/.openapi-generator/
 
