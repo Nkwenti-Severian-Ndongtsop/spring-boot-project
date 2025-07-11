@@ -59,19 +59,19 @@ export default function ViewTickets() {
   };
 
   return (
-    <div className="min-h-screen bg-background py-8 px-4">
+    <div className="min-h-screen bg-background py-1 px-2">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="flex items-center justify-between mb-8 animate-fade-in">
+        <div className="flex items-center justify-between mb-2 animate-fade-in">
           <div>
-            <h1 className="text-3xl font-bold font-poppins mb-2">All Tickets</h1>
-            <p className="text-muted-foreground">
+            <h1 className="text-5xl font-bold font-poppins mb-4">All Tickets</h1>
+            <p className="text-xl text-muted-foreground">
               Manage your tickets and travel plans
             </p>
           </div>
           <Button asChild size="lg">
             <Link to="/create">
-              <Plus className="h-5 w-5 mr-2" />
+              <Plus className="h-7 w-7 mr-3" />
               New Ticket
             </Link>
           </Button>
@@ -105,7 +105,7 @@ export default function ViewTickets() {
                   <TableHead>Kickof Address</TableHead>
                   <TableHead>Destination</TableHead>
                   <TableHead>Date</TableHead>
-                  <TableHead>Created</TableHead>
+                  <TableHead>Created At</TableHead>
                   <TableHead className="text-right">Actions</TableHead>
                 </TableRow>
               </TableHeader>
@@ -120,7 +120,7 @@ export default function ViewTickets() {
                     <TableCell>{ticket.kickoffAddress}</TableCell>
                     <TableCell>{ticket.destinationAddress}</TableCell>
                     <TableCell>{ticket.bookingDate ? format(new Date(ticket.bookingDate), "PPP") : ""}</TableCell>
-                    <TableCell></TableCell>
+                    <TableCell>{ticket.createdAt ? format(new Date(ticket.createdAt), "PPpp") : ""}</TableCell>
                     <TableCell className="text-right">
                       <div className="flex items-center justify-end space-x-2">
                         <Button
