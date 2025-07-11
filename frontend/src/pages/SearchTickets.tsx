@@ -19,6 +19,17 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { toast } from "@/hooks/use-toast";
 import { format } from "date-fns";
 
@@ -27,6 +38,7 @@ export default function SearchTickets() {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchBy, setSearchBy] = useState<'kickofaddress' | 'destination' | 'date'>('kickofaddress');
   const [editingTicket, setEditingTicket] = useState<any | null>(null);
+  const [deletingTicketId, setDeletingTicketId] = useState<number | null>(null);
 
   const tickets = ticketsQuery.data || [];
 
@@ -36,11 +48,13 @@ export default function SearchTickets() {
     const query = searchQuery.toLowerCase();
     return tickets.filter(ticket => {
       if (searchBy === 'kickofaddress') {
-        return ticket.kickofaddress.toLowerCase().includes(query);
+        return ticket.kickoffAddress?.toLowerCase().includes(query);
       } else if (searchBy === 'destination') {
-        return ticket.destination.toLowerCase().includes(query);
+        return ticket.destinationAddress?.toLowerCase().includes(query);
       } else if (searchBy === 'date') {
-        return format(ticket.date, "PPP").toLowerCase().includes(query);
+        return ticket.bookingDate && format(new Date(ticket.bookingDate), "PPP").toLowerCase().includes(query);
+      } else if (searchBy === 'createdAt') {
+        return ticket.createdAt && format(new Date(ticket.createdAt), "PPpp").toLowerCase().includes(query);
       }
       return false;
     });
@@ -56,6 +70,7 @@ export default function SearchTickets() {
       title: "Ticket Deleted",
       description: "The ticket has been successfully deleted.",
     });
+    setDeletingTicketId(null);
   };
 
   const clearSearch = () => {
@@ -63,12 +78,12 @@ export default function SearchTickets() {
   };
 
   return (
-    <div className="min-h-screen bg-background py-8 px-4">
+    <div className="min-h-screen bg-background py-1 px-2">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="mb-8 animate-fade-in">
-          <h1 className="text-3xl font-bold font-poppins mb-2">Search Tickets</h1>
-          <p className="text-muted-foreground">
+        <div className="mb-2 animate-fade-in">
+          <h1 className="text-5xl font-bold font-poppins mb-4">Search Tickets</h1>
+          <p className="text-xl text-muted-foreground">
             Find your tickets by kickof address, destination, or date
           </p>
         </div>
@@ -95,6 +110,7 @@ export default function SearchTickets() {
                   <SelectItem value="kickofaddress">Kickof Address</SelectItem>
                   <SelectItem value="destination">Destination</SelectItem>
                   <SelectItem value="date">Date</SelectItem>
+                  <SelectItem value="createdAt">Created At</SelectItem>
                 </SelectContent>
               </Select>
               {searchQuery && (
@@ -156,7 +172,7 @@ export default function SearchTickets() {
                   <TableHead>Kickof Address</TableHead>
                   <TableHead>Destination</TableHead>
                   <TableHead>Date</TableHead>
-                  <TableHead>Created</TableHead>
+                  <TableHead>Created At</TableHead>
                   <TableHead className="text-right">Actions</TableHead>
                 </TableRow>
               </TableHeader>
@@ -167,11 +183,11 @@ export default function SearchTickets() {
                     className="animate-scale-in"
                     style={{ animationDelay: `${index * 50}ms` }}
                   >
-                    <TableCell className="font-medium">{ticket.name}</TableCell>
-                    <TableCell>{ticket.kickofaddress}</TableCell>
-                    <TableCell>{ticket.destination}</TableCell>
-                    <TableCell>{format(ticket.date, "PPP")}</TableCell>
-                    <TableCell>{format(ticket.createdAt, "PP")}</TableCell>
+                    <TableCell className="font-medium">{ticket.passengerName}</TableCell>
+                    <TableCell>{ticket.kickoffAddress}</TableCell>
+                    <TableCell>{ticket.destinationAddress}</TableCell>
+                    <TableCell>{ticket.bookingDate ? format(new Date(ticket.bookingDate), "PPP") : ""}</TableCell>
+                    <TableCell>{ticket.createdAt ? format(new Date(ticket.createdAt), "PPpp") : ""}</TableCell>
                     <TableCell className="text-right">
                       <div className="flex items-center justify-end space-x-2">
                         <Button
@@ -181,13 +197,27 @@ export default function SearchTickets() {
                         >
                           Edit
                         </Button>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => handleDelete(ticket.id)}
-                        >
-                          Delete
-                        </Button>
+                        <AlertDialog open={deletingTicketId === ticket.id} onOpenChange={(open) => setDeletingTicketId(open ? ticket.id : null)}>
+                          <AlertDialogTrigger asChild>
+                            <Button variant="outline" size="sm">
+                              Delete
+                            </Button>
+                          </AlertDialogTrigger>
+                          <AlertDialogContent>
+                            <AlertDialogHeader>
+                              <AlertDialogTitle>Delete Ticket</AlertDialogTitle>
+                              <AlertDialogDescription>
+                                Are you sure you want to delete this ticket for {ticket.passengerName}? This action cannot be undone.
+                              </AlertDialogDescription>
+                            </AlertDialogHeader>
+                            <AlertDialogFooter>
+                              <AlertDialogCancel>Cancel</AlertDialogCancel>
+                              <AlertDialogAction onClick={() => handleDelete(ticket.id)}>
+                                Delete
+                              </AlertDialogAction>
+                            </AlertDialogFooter>
+                          </AlertDialogContent>
+                        </AlertDialog>
                       </div>
                     </TableCell>
                   </TableRow>
