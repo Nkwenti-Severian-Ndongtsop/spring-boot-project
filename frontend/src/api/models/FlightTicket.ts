@@ -14,41 +14,47 @@
 
 import { mapValues } from '../runtime';
 /**
- * 
+ * A flight ticket entity
  * @export
  * @interface FlightTicket
  */
 export interface FlightTicket {
     /**
-     * 
+     * Unique identifier for the ticket
      * @type {number}
      * @memberof FlightTicket
      */
     id?: number;
     /**
-     * 
+     * Name of the passenger
      * @type {string}
      * @memberof FlightTicket
      */
     passengerName: string;
     /**
-     * 
+     * Departure location
      * @type {string}
      * @memberof FlightTicket
      */
     kickoffAddress: string;
     /**
-     * 
+     * Destination location
      * @type {string}
      * @memberof FlightTicket
      */
     destinationAddress: string;
     /**
-     * 
+     * Date of booking
      * @type {Date}
      * @memberof FlightTicket
      */
     bookingDate?: Date;
+    /**
+     * Timestamp when the ticket was created
+     * @type {Date}
+     * @memberof FlightTicket
+     */
+    createdAt?: Date;
 }
 
 /**
@@ -76,6 +82,7 @@ export function FlightTicketFromJSONTyped(json: any, ignoreDiscriminator: boolea
         'kickoffAddress': json['kickoffAddress'],
         'destinationAddress': json['destinationAddress'],
         'bookingDate': json['bookingDate'] == null ? undefined : (new Date(json['bookingDate'])),
+        'createdAt': json['createdAt'] == null ? undefined : (new Date(json['createdAt'])),
     };
 }
 
@@ -95,6 +102,7 @@ export function FlightTicketToJSONTyped(value?: FlightTicket | null, ignoreDiscr
         'kickoffAddress': value['kickoffAddress'],
         'destinationAddress': value['destinationAddress'],
         'bookingDate': value['bookingDate'] == null ? undefined : ((value['bookingDate']).toISOString().substring(0,10)),
+        'createdAt': value['createdAt'] == null ? undefined : ((value['createdAt']).toISOString()),
     };
 }
 
