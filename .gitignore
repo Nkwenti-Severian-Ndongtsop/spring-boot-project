@@ -1,50 +1,80 @@
-HELP.md
-.gradle
-build/
-!gradle/wrapper/gradle-wrapper.jar
-!**/src/main/**/build/
-!**/src/test/**/build/
+# General
+.DS_Store
+Thumbs.db
+*.log
+logs/
+*.local
 
-### STS ###
-.apt_generated
+# IDEs
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Java/Gradle
+.gradle/
+build/
+out/
+HELP.md
 .classpath
 .factorypath
 .project
 .settings
 .springBeans
 .sts4-cache
+.apt_generated
 bin/
-!**/src/main/**/bin/
-!**/src/test/**/bin/
 
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
-out/
-!**/src/main/**/out/
-!**/src/test/**/out/
-
-### NetBeans ###
+# NetBeans
 /nbproject/private/
 /nbbuild/
 /dist/
 /nbdist/
 /.nb-gradle/
 
-### VS Code ###
-.vscode/
+# Node/Frontend
+node_modules/
+frontend/node_modules/
+frontend/dist/
+frontend/.next/
+frontend/.cache/
+frontend/coverage/
 
-# --- Docker ---
-# Ignore local Docker images and build cache
+# Docker
 *.tar
 *.img
 .docker/
 
-# --- Logs ---
-*.log
+# Ignore lock files except for production
+# (keep package-lock.json for reproducible builds)
+# !frontend/package-lock.json
 
-# --- OS/Editor files ---
-.DS_Store
-Thumbs.db
+# Ignore test, dev, and temp files
+*.test.*
+*.spec.*
+*.tmp
+*.bak
+
+# Ignore OpenAPI generator cache
+frontend/src/api/.openapi-generator/
+
+# Allow production configs and Dockerfiles
+!frontend/Dockerfile
+!frontend/nginx.conf
+!frontend/openapi.json
+!frontend/openapitools.json
+!frontend/package.json
+!frontend/package-lock.json
+!frontend/tsconfig*.json
+!frontend/vite.config.ts
+!frontend/postcss.config.js
+!frontend/tailwind.config.ts
+!frontend/index.html
+
+# Ignore build output in backend
+src/main/resources/static/
+
+# End
