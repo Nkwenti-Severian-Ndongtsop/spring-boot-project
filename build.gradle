@@ -1,44 +1,45 @@
 plugins {
-	id 'java'
-	id 'org.springframework.boot' version '3.3.13'
-	id 'io.spring.dependency-management' version '1.1.7'
+    id 'java'
+    id 'org.springframework.boot' version '3.3.13'
+    id 'io.spring.dependency-management' version '1.1.7'
 }
 
 group = 'com.adorsys_gis'
 version = '0.0.1-SNAPSHOT'
 
 java {
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(17)
-	}
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
 }
 
 configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
 }
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-	implementation 'org.slf4j:slf4j-api:2.0.13'
-	implementation 'ch.qos.logback:logback-classic:1.5.18'
-	implementation 'org.springframework.boot:spring-boot-starter-aop'
-	implementation("org.springframework.boot:spring-boot-starter-data-jpa:3.4.5")
-	implementation 'org.postgresql:postgresql:42.7.7'
-	implementation("org.springframework.boot:spring-boot-devtools:3.4.3")
-	implementation("org.springframework.boot:spring-boot-starter-aop:3.4.4")
-	implementation 'jakarta.validation:jakarta.validation-api:3.0.2'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    implementation 'org.slf4j:slf4j-api:2.0.13'
+    implementation 'ch.qos.logback:logback-classic:1.5.18'
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa:3.4.5")
+    implementation 'org.postgresql:postgresql:42.7.7'
+    implementation("org.springframework.boot:spring-boot-devtools:3.4.3")
+    implementation("org.springframework.boot:spring-boot-starter-aop:3.4.4")
+    implementation 'jakarta.validation:jakarta.validation-api:3.0.2'
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0'
 }
 
 tasks.named('test') {
-	useJUnitPlatform()
+    useJUnitPlatform()
 }
