@@ -76,15 +76,15 @@ export default function CreateTicket() {
   ];
 
   return (
-    <div className="min-h-screen bg-background py-12 px-4">
+    <div className="min-h-screen bg-background py-1 px-2 pb-16">
       <div className="max-w-2xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-8 animate-fade-in">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-sky rounded-full mb-4">
+        <div className="text-center mb-2 animate-fade-in">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-sky rounded-full mb-2">
             <Plane className="h-8 w-8 text-white" />
           </div>
-          <h1 className="text-3xl font-bold font-poppins mb-2">Book Your Flight</h1>
-          <p className="text-muted-foreground">Create a new airline ticket with all the details</p>
+          <h1 className="text-5xl font-bold font-poppins mb-4">Book Your Flight</h1>
+          <p className="text-xl text-muted-foreground">Create a new airline ticket with all the details</p>
         </div>
 
         {/* Form Card */}
