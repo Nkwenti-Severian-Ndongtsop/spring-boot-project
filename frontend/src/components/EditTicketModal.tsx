@@ -17,9 +17,10 @@ import { useToast } from "@/hooks/use-toast";
 import { CalendarIcon, MapPin } from "lucide-react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
+import { FlightTicket } from "@/types/flight";
 
 interface EditTicketModalProps {
-  ticket: any; // Changed from Ticket to any as Ticket type is removed
+  ticket: FlightTicket | null;
   open: boolean;
   onClose: () => void;
 }
