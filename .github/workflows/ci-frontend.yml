@@ -1,0 +1,33 @@
+name: ci-frontend
+
+on:
+  push:
+    paths:
+      - 'frontend/**'
+
+jobs:
+  ci:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: |
+          cd frontend
+          npm ci
+
+      - name: Lint
+        run: |
+          cd frontend
+          npm run lint
+
+      - name: Type check
+        run: |
+          cd frontend
+          npx tsc --noEmit 
