@@ -110,7 +110,7 @@ export default function ViewTickets() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {tickets.map((ticket: any, index: number) => (
+                {tickets.map((ticket: FlightTicket, index: number) => (
                   <TableRow 
                     key={ticket.id}
                     className="animate-scale-in"
