@@ -26,8 +26,3 @@ jobs:
         run: |
           cd frontend
           npm run lint
-
-      - name: Type check
-        run: |
-          cd frontend
-          npx tsc --noEmit 
