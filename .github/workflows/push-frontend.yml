@@ -1,20 +1,17 @@
-name: automated package push for frontend
+name: push-frontend
 
 on:
-  push:
-    branches:
-      - master
-
-env:
-  IMAGE_NAME: flight-ui 
-  IMAGE_PATH: nkwenti-severian-ndongtsop
+  workflow_run:
+    workflows: ["ci-frontend"]
+    types:
+      - completed
 
 jobs:
-  build:
+  build-and-push:
+    if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.branch == 'master' }}
     runs-on: ubuntu-22.04
     permissions:
       packages: write
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -22,9 +19,9 @@ jobs:
       - name: login to container registry
         uses: docker/login-action@v2
         with:
-            registry: ghcr.io
-            username: ${{ github.actor }}
-            password: ${{ secrets.GITHUB_TOKEN }}
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build project
         uses: docker/build-push-action@v4
@@ -32,4 +29,4 @@ jobs:
           context: ./frontend
           push: true
           tags: |
-            ghcr.io/${{ env.IMAGE_PATH }}/${{ env.IMAGE_NAME }}:latest
+            ghcr.io/nkwenti-severian-ndongtsop/flight-ui:latest
