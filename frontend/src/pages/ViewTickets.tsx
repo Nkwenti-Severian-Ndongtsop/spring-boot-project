@@ -140,7 +140,7 @@ export default function ViewTickets() {
                             <AlertDialogHeader>
                               <AlertDialogTitle>Delete Ticket</AlertDialogTitle>
                               <AlertDialogDescription>
-                                Are you sure you want to delete this ticket for {ticket.name}? 
+                                Are you sure you want to delete this ticket to {ticket.destinationAddress}? 
                                 This action cannot be undone.
                               </AlertDialogDescription>
                             </AlertDialogHeader>
