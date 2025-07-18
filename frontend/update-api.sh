@@ -9,7 +9,7 @@ npx @openapitools/openapi-generator-cli generate \
   --skip-validate-spec
 
 
-echo""
+echo ""
 echo "----------------------------------------" >&2
 echo "✅ OpenAPI client updated successfully!" >&2
 echo "----------------------------------------" >&2 
