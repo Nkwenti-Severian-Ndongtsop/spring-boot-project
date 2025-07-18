@@ -50,6 +50,9 @@ public class FlightTicket {
     @Schema(description = "Timestamp when the ticket was created", example = "2024-06-20T12:34:56")
     private LocalDateTime createdAt;
 
+    @Schema(description = "ID of the user who owns this ticket", example = "46952d32-b6ab-411e-8530-316b209d75a3")
+    private String userId;
+
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
