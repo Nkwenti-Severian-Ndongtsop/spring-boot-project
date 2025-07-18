@@ -55,6 +55,12 @@ export interface FlightTicket {
      * @memberof FlightTicket
      */
     createdAt?: Date;
+    /**
+     * ID of the user who owns this ticket
+     * @type {string}
+     * @memberof FlightTicket
+     */
+    userId?: string;
 }
 
 /**
@@ -83,6 +89,7 @@ export function FlightTicketFromJSONTyped(json: any, ignoreDiscriminator: boolea
         'destinationAddress': json['destinationAddress'],
         'bookingDate': json['bookingDate'] == null ? undefined : (new Date(json['bookingDate'])),
         'createdAt': json['createdAt'] == null ? undefined : (new Date(json['createdAt'])),
+        'userId': json['userId'] == null ? undefined : json['userId'],
     };
 }
 
@@ -103,6 +110,7 @@ export function FlightTicketToJSONTyped(value?: FlightTicket | null, ignoreDiscr
         'destinationAddress': value['destinationAddress'],
         'bookingDate': value['bookingDate'] == null ? undefined : ((value['bookingDate']).toISOString().substring(0,10)),
         'createdAt': value['createdAt'] == null ? undefined : ((value['createdAt']).toISOString()),
+        'userId': value['userId'],
     };
 }
 
