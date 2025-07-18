@@ -1,7 +1,8 @@
 import { ReactNode } from "react";
-import { Plane, Home, Plus, List, Search } from "lucide-react";
+import { Plane, Plus, List, Search } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { useAuth } from "../App";
 
 interface LayoutProps {
   children: ReactNode;
@@ -9,12 +10,16 @@ interface LayoutProps {
 
 export function Layout({ children }: LayoutProps) {
   const location = useLocation();
+  const { user } = useAuth();
 
   const navigation = [
-    { name: "Home", href: "/", icon: Home },
-    { name: "Create Ticket", href: "/create", icon: Plus },
-    { name: "View Tickets", href: "/tickets", icon: List },
-    { name: "Search", href: "/search", icon: Search },
+    ...(user
+      ? [
+          { name: "Create Ticket", href: "/create", icon: Plus },
+          { name: "View Tickets", href: "/tickets", icon: List },
+          { name: "Search", href: "/search", icon: Search },
+        ]
+      : []),
   ];
 
   const isHome = location.pathname === "/";
@@ -24,15 +29,12 @@ export function Layout({ children }: LayoutProps) {
       {/* Navigation */}
       <nav className="bg-card border-b border-border shadow-soft" style={{ height: 88, minHeight: 88 }}>
         <div className="flex items-center h-20 justify-between w-full px-4 sm:px-6 lg:px-8">
-          {/* Logo flush left */}
+          {/* Logo flush left, angled */}
           <div className="flex items-center">
-            <Link 
-              to="/" 
-              className="flex items-center space-x-2 text-primary font-bold text-3xl font-poppins hover:text-primary-glow transition-colors"
-            >
+            <span className="flex items-center space-x-2 text-primary font-bold text-3xl font-poppins select-none" style={{ transform: 'rotate(-10deg)' }}>
               <Plane className="h-8 w-8" />
               <span>SkyJet ✈️</span>
-            </Link>
+            </span>
           </div>
 
           {/* Navigation Links flush right */}
@@ -40,7 +42,6 @@ export function Layout({ children }: LayoutProps) {
             {navigation.map((item) => {
               const isActive = location.pathname === item.href;
               const Icon = item.icon;
-              
               return (
                 <Link
                   key={item.name}
@@ -60,6 +61,14 @@ export function Layout({ children }: LayoutProps) {
                 </Link>
               );
             })}
+          </div>
+
+          {/* Logo flush right, angled */}
+          <div className="flex items-center">
+            <span className="flex items-center space-x-2 text-primary font-bold text-3xl font-poppins select-none" style={{ transform: 'rotate(10deg)' }}>
+              <Plane className="h-8 w-8" />
+              <span>SkyJet ✈️</span>
+            </span>
           </div>
         </div>
       </nav>
