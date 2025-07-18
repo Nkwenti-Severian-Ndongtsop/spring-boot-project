@@ -37,8 +37,24 @@ public class FlightTicketService {
         return repository.findAll();
     }
 
+    public List<FlightTicket> getTicketsForUser(String userId) {
+        return repository.findByUserId(userId);
+    }
+
     public FlightTicket updateTicket(Long id, FlightTicket updated) {
         return repository.findById(id).map(ticket -> {
+            ticket.setPassengerName(updated.getPassengerName());
+            ticket.setKickoffAddress(updated.getKickoffAddress());
+            ticket.setDestinationAddress(updated.getDestinationAddress());
+            if (updated.getBookingDate() != null) {
+                ticket.setBookingDate(updated.getBookingDate());
+            }
+            return repository.save(ticket);
+        }).orElse(null);
+    }
+
+    public FlightTicket updateTicketForUser(Long id, FlightTicket updated, String userId) {
+        return repository.findById(id).filter(ticket -> userId.equals(ticket.getUserId())).map(ticket -> {
             ticket.setPassengerName(updated.getPassengerName());
             ticket.setKickoffAddress(updated.getKickoffAddress());
             ticket.setDestinationAddress(updated.getDestinationAddress());
@@ -55,5 +71,12 @@ public class FlightTicketService {
             return true;
         }
         return false;
+    }
+
+    public boolean deleteTicketForUser(Long id, String userId) {
+        return repository.findById(id).filter(ticket -> userId.equals(ticket.getUserId())).map(ticket -> {
+            repository.deleteById(id);
+            return true;
+        }).orElse(false);
     }
 }
