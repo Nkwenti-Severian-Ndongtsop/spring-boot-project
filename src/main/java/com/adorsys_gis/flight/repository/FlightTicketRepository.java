@@ -10,4 +10,5 @@ public interface FlightTicketRepository extends JpaRepository<FlightTicket, Long
     List<FlightTicket> findByBookingDate(LocalDate bookingDate);
     List<FlightTicket> findByDestinationAddressIgnoreCase(String destinationAddress);
     List<FlightTicket> findByKickoffAddressIgnoreCase(String kickoffAddress);
+    List<FlightTicket> findByUserId(String userId);
 }
