@@ -1,10 +1,11 @@
-import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Plane, TicketIcon } from "lucide-react";
 import airlineHero from "@/assets/airline-hero.jpg";
+import { useAuth } from "../App";
+import { LogOut } from "lucide-react";
 
 export default function Dashboard() {
-  // Height: 100vh - navbar (88px)
+  const { user, loading, logout } = useAuth();
+
   return (
     <div className="bg-background">
       {/* Hero Section */}
@@ -26,20 +27,30 @@ export default function Dashboard() {
           <p className="text-2xl md:text-3xl text-primary-foreground/90 mb-10 max-w-2xl mx-auto drop-shadow-md">
             Your premium airline ticket management system. Create, manage, and track your flight bookings with ease.
           </p>
-          <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <Button asChild size="xl" className="text-xl px-10 py-6" variant="accent">
-              <Link to="/create">
-                <Plane className="h-7 w-7 mr-3" />
-                Book New Flight
-              </Link>
+          {loading ? (
+            <div className="mb-8 text-lg text-primary-foreground">Loading...</div>
+          ) : user ? (
+            <div className="mb-8 flex flex-col items-center gap-2">
+              <span className="text-xl text-primary-foreground font-semibold">Welcome, {user.name || user.preferred_username}!</span>
+              <Button
+                variant="outline"
+                className="flex items-center gap-2"
+                onClick={logout}
+              >
+                <LogOut className="h-5 w-5" /> Logout
+              </Button>
+            </div>
+          ) : (
+            <Button
+              size="xl"
+              className="text-xl px-10 py-6 mb-8 bg-blue-600 hover:bg-blue-700 text-white font-bold"
+              onClick={() => {
+                window.location.href = "http://localhost:8000/oauth2/authorization/keycloak";
+              }}
+            >
+              Get Started
             </Button>
-            <Button asChild size="xl" className="text-xl px-10 py-6" variant="accent">
-              <Link to="/tickets">
-                <TicketIcon className="h-7 w-7 mr-3" />
-                View All Tickets
-              </Link>
-            </Button>
-          </div>
+          )}
         </div>
       </div>
     </div>
