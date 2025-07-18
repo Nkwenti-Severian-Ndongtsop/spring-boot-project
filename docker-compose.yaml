@@ -1,0 +1,43 @@
+version: '3.7'
+
+services:
+  postgres:
+    image: postgres
+    volumes:
+      - /home/ubuntu/data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: flight_db
+      POSTGRES_USER: nkwenti
+      POSTGRES_PASSWORD: mysecretpassword
+    ports:
+      - 5432:5432
+    networks:
+      - keycloak_network
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.3.1
+    command: start
+    environment:
+      KC_HOSTNAME: 10.143.124.81
+      KC_HOSTNAME_PORT: 8080
+      KC_HOSTNAME_STRICT_BACKCHANNEL: "false"
+      KC_HTTP_ENABLED: "true"
+      KC_HOSTNAME_STRICT_HTTPS: "false"
+      KC_HEALTH_ENABLED: "true"
+      KEYCLOAK_ADMIN: nkwenti
+      KEYCLOAK_ADMIN_PASSWORD: password
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://postgres:5432/flight_db
+      KC_DB_USERNAME: nkwenti
+      KC_DB_PASSWORD: mysecretpassword
+    ports:
+      - 7000:8080
+    restart: always
+    depends_on:
+      - postgres
+    networks:
+      - keycloak_network
+
+networks:
+  keycloak_network:
+    driver: bridge
